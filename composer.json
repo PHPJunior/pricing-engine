@@ -1,0 +1,72 @@
+{
+    "name": "php-junior/pricing-engine",
+    "description": "A dynamic pricing rule engine for Laravel.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "php-junior",
+        "laravel-dynamic-pricing",
+        "pricing-engine",
+        "pricing-rules",
+        "laravel-package",
+        "laravel",
+        "ecommerce",
+        "shopping-cart"
+    ],
+    "homepage": "https://github.com/PHPJunior/laravel-xml",
+    "authors": [
+        {
+            "name": "Nyi Nyi Lwin",
+            "email": "nyinyilwin1992@hotmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PhpJunior\\PricingEngine\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpJunior\\PricingEngine\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.8",
+        "phpunit/phpunit": "^11.5"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
+        ],
+        "lint": [
+            "@php vendor/bin/phpstan analyse --verbose --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PhpJunior\\PricingEngine\\Providers\\PricingEngineServiceProvider"
+            ],
+            "aliases": {
+                "PricingEngine": "PhpJunior\\PricingEngine\\Facades\\PricingEngine"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
