@@ -31,6 +31,7 @@ The configuration file `config/pricing-engine.php` allows you to customize:
 - Model classes
 - Table names
 - Priority order (highest first or lowest first)
+- Save Usage Records
 - Available operators
 - Available actions
 

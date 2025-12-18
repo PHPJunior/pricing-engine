@@ -10,6 +10,7 @@ return [
         'rule_usages' => 'rule_usages',
     ],
     'highest_priority_first' => true, // true for highest priority first, false for lowest priority first
+    'save_usage_records' => false, // whether to save rule usage records
     'operators' => [
         '=' => \PhpJunior\PricingEngine\Operators\EqualOperator::class,
         '!=' => \PhpJunior\PricingEngine\Operators\NotEqualOperator::class,

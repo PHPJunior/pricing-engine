@@ -10,9 +10,12 @@ class CalculatePriceHandler
 {
     private bool $highestPriorityFirst;
 
+    private bool $saveUsageRecords;
+
     public function __construct(private readonly PricingRuleRepository $repository)
     {
         $this->highestPriorityFirst = config('pricing-engine.highest_priority_first', true);
+        $this->saveUsageRecords = config('pricing-engine.save_usage_records', true);
     }
 
     /**
@@ -104,6 +107,10 @@ class CalculatePriceHandler
      */
     private function recordRuleUsage(RuleData $rule, float $priceBefore, float $priceAfter): void
     {
+        if (!$this->saveUsageRecords) {
+            return;
+        }
+
         $this->repository->find($rule->id)->ruleUsages()->create([
             'discount_amount' => $priceBefore - $priceAfter,
             'final_price' => $priceAfter,

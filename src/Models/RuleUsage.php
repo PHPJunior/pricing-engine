@@ -4,6 +4,7 @@ namespace PhpJunior\PricingEngine\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RuleUsage extends Model
 {
@@ -30,4 +31,12 @@ class RuleUsage extends Model
         'discount_amount' => 'decimal:2',
         'final_price' => 'decimal:2',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function rule(): BelongsTo
+    {
+        return $this->belongsTo(config('pricing-engine.models.pricing_rule'), 'pricing_rule_id');
+    }
 }
