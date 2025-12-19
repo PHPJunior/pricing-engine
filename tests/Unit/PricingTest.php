@@ -150,6 +150,9 @@ class PricingTest extends TestCase
         $this->assertCount(1, $result['applied_rules']);
     }
 
+    /**
+     * @throws Exception
+     */
     public function test_calculate_price_no_matching_rule()
     {
         PricingEngine::make()->savePricingRule(
@@ -177,5 +180,71 @@ class PricingTest extends TestCase
 
         $this->assertEquals(150, $result['final_price']);
         $this->assertCount(0, $result['applied_rules']);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_contains_operator()
+    {
+        PricingEngine::make()->savePricingRule(
+            name: 'Contains Test Rule',
+            priority: 1,
+            conditions: [
+                new ConditionData(
+                    attribute: 'tags',
+                    operator: 'contains',
+                    value: 'special'
+                )
+            ],
+            actions: [
+                new ActionData(
+                    type: 'fixed_discount',
+                    value: 10
+                )
+            ]
+        );
+
+        $result = PricingEngine::calculatePrice(
+            basePrice: 100,
+            context: [
+                'tags' => ['new', 'spec', 'featured']
+            ]
+        );
+
+        $this->assertEquals(90, $result['final_price']);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_not_contains_operator()
+    {
+        PricingEngine::make()->savePricingRule(
+            name: 'Not Contains Test Rule',
+            priority: 1,
+            conditions: [
+                new ConditionData(
+                    attribute: 'tags',
+                    operator: 'not_contains',
+                    value: 'special'
+                )
+            ],
+            actions: [
+                new ActionData(
+                    type: 'fixed_discount',
+                    value: 15
+                )
+            ]
+        );
+
+        $result = PricingEngine::calculatePrice(
+            basePrice: 200,
+            context: [
+                'tags' => ['new', 'featured', 'exclusive']
+            ]
+        );
+
+        $this->assertEquals(185, $result['final_price']);
     }
 }

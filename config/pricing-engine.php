@@ -28,6 +28,8 @@ return [
         'day_of_week' => \PhpJunior\PricingEngine\Operators\DayOfWeekOperator::class,
         'location_in' => \PhpJunior\PricingEngine\Operators\LocationInOperator::class,
         'location_not_in' => \PhpJunior\PricingEngine\Operators\LocationNotInOperator::class,
+        'contains' => \PhpJunior\PricingEngine\Operators\ContainsOperator::class,
+        'not_contains' => \PhpJunior\PricingEngine\Operators\NotContainsOperator::class
     ],
     'actions' => [
         'percentage_discount' => \PhpJunior\PricingEngine\Actions\PercentageDiscountAction::class,

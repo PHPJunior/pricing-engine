@@ -174,6 +174,10 @@ get more info [here](https://github.com/stevebauman/location)
 - `day_of_week`
 - `location_in`
 - `location_not_in`
+- `contains`
+- `not_contains`
+
+For `contains` and `not_contains`, both the attribute value and condition value can be arrays or strings.
 
 ### Available Actions
 
