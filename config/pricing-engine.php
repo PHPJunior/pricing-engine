@@ -26,6 +26,8 @@ return [
         'date_between' => \PhpJunior\PricingEngine\Operators\DateBetweenOperator::class,
         'time_between' => \PhpJunior\PricingEngine\Operators\TimeBetweenOperator::class,
         'day_of_week' => \PhpJunior\PricingEngine\Operators\DayOfWeekOperator::class,
+        'location_in' => \PhpJunior\PricingEngine\Operators\LocationInOperator::class,
+        'location_not_in' => \PhpJunior\PricingEngine\Operators\LocationNotInOperator::class,
     ],
     'actions' => [
         'percentage_discount' => \PhpJunior\PricingEngine\Actions\PercentageDiscountAction::class,

@@ -113,6 +113,49 @@ $result = PricingEngine::calculatePrice(
 // ]
 ```
 
+Location-based pricing example:
+
+```php
+use PhpJunior\PricingEngine\Facades\PricingEngine;
+use PhpJunior\PricingEngine\Data\ConditionData;
+use PhpJunior\PricingEngine\Data\ActionData;
+
+PricingEngine::make()->savePricingRule(
+    name: 'Location Based Discount',
+    priority: 1,
+    conditions: [
+        new ConditionData(
+            attribute: 'location',
+            operator: 'location_in',
+            value: ['US', 'CA']
+        )
+    ],
+    actions: [
+        new ActionData(
+            type: 'fixed_discount',
+            value: 20
+        )
+    ]
+);
+
+$result = PricingEngine::calculatePrice(
+    basePrice: 150,
+    context: [
+        'location' => 'ip_address_here'
+    ]
+);
+
+// $result will contain:
+// [
+//     'original_price' => 150,
+//     'final_price' => 130,
+//     'applied_rules' => [ ... ]
+// ]
+```
+
+for location-based conditions, used this package `stevebauman/location` to resolve IP addresses to locations.
+get more info [here](https://github.com/stevebauman/location)
+
 ### Available Operators
 
 - `=`
@@ -129,6 +172,8 @@ $result = PricingEngine::calculatePrice(
 - `date_between`
 - `time_between`
 - `day_of_week`
+- `location_in`
+- `location_not_in`
 
 ### Available Actions
 
@@ -207,6 +252,9 @@ PricingEngine::make()->savePricingRule(
 ```bash
 composer test
 ```
+
+## Credit
+- [Steve Bauman](https://github.com/stevebauman) for his location package which is used for location-based pricing rules.
 
 ## License
 
